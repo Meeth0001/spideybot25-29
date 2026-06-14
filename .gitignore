@@ -1,5 +1,4 @@
 .env
+*.log
 __pycache__/
 *.pyc
-bot.err.log
-bot.out.log
