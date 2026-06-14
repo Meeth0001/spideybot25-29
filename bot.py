@@ -1,5 +1,7 @@
 import logging
 import asyncio
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.error import TelegramError, TimedOut
 from telegram.ext import (
@@ -26,6 +28,28 @@ logging.getLogger("httpcore").setLevel(logging.WARNING)
 # Conversation states
 MOBILE, PASSWORD = range(2)
 
+
+# ── Minimal health-check HTTP server ─────────────────────────────────────────
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain")
+        self.end_headers()
+        self.wfile.write(b"OK")
+
+    def log_message(self, format, *args):
+        pass  # suppress access logs
+
+
+def start_health_server(port: int = 8000):
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    t = threading.Thread(target=server.serve_forever, daemon=True)
+    t.start()
+    logger.info("Health-check server listening on :%d", port)
+
+
+# ── Telegram Bot handlers ─────────────────────────────────────────────────────
 
 async def safe_reply(message, text, **kwargs):
     try:
@@ -231,6 +255,9 @@ def main():
     if TELEGRAM_BOT_TOKEN == "YOUR_TELEGRAM_BOT_TOKEN":
         logger.error("Please set the TELEGRAM_BOT_TOKEN in config.py or .env file.")
         return
+
+    # Start minimal health-check HTTP server in a background daemon thread
+    start_health_server(port=8000)
 
     # Create the application
     application = (
