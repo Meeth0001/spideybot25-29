@@ -93,14 +93,95 @@ async def main_menu_callback(update: Update, context: ContextTypes.DEFAULT_TYPE)
     if query.data == "menu_notes":
         keyboard = [
             [InlineKeyboardButton("📅 Academic Calendar", url="https://drive.google.com/file/d/1Y17VzPOWrjFOBzSS89tOdUddVojwZd_j/view?usp=drive_link")],
-            [InlineKeyboardButton("🔄 P Cycle 2025-26", url="https://drive.google.com/file/d/1ZbHxEqPqAQ6gQHaTpsTwB2HE4KH-yGMu/view")],
-            [InlineKeyboardButton("📝 P Cycle Notes", url="https://drive.google.com/file/d/1G7veBVBH0geND6eiOA0r3Dcekd5mYxSf/view")],
+            [InlineKeyboardButton("🔵 P Cycle", callback_data="notes_pcycle")],
+            [InlineKeyboardButton("🟢 C Cycle", callback_data="notes_ccycle")],
             [InlineKeyboardButton("⬅️ Back", callback_data="menu_back")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         await safe_edit(
-            query, 
-            "📚 <b>2nd Semester Notes</b>\n\nSelect an option below:",
+            query,
+            "📚 <b>2nd Semester Notes</b>\n\nSelect a cycle to explore:",
+            reply_markup=reply_markup,
+            parse_mode="HTML"
+        )
+
+    elif query.data == "notes_pcycle":
+        keyboard = [
+            [InlineKeyboardButton("📅 P Cycle 2025-26", url="https://drive.google.com/file/d/1ZbHxEqPqAQ6gQHaTpsTwB2HE4KH-yGMu/view")],
+            [InlineKeyboardButton("⚡ Elements of Electrical Engg", callback_data="pcycle_eee")],
+            [InlineKeyboardButton("⚙️ Elements of Mechanical Engg", callback_data="pcycle_eme")],
+            [InlineKeyboardButton("🔭 Physics", callback_data="pcycle_phy")],
+            [InlineKeyboardButton("⬅️ Back to Notes", callback_data="menu_notes")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await safe_edit(
+            query,
+            "🔵 <b>P Cycle — 2nd Semester</b>\n\nSelect a subject:",
+            reply_markup=reply_markup,
+            parse_mode="HTML"
+        )
+
+    # ── P Cycle: Elements of Electrical Engineering (Unit 2-5) ──────────────
+    elif query.data == "pcycle_eee":
+        keyboard = [
+            [InlineKeyboardButton("📘 Unit 2", url="https://drive.google.com/file/d/1mLNdHwNwwc0aqt4LKIZ0o7MOUcJ5kp6l/view?usp=drive_link")],
+            [InlineKeyboardButton("📘 Unit 3", url="https://drive.google.com/file/d/1zm9QkcxQfKF3i8Pbg4Ji81Nul3BzOHMa/view?usp=drive_link")],
+            [InlineKeyboardButton("📘 Unit 4", url="https://drive.google.com/file/d/1uv4H7jIdEGr3kpw0WTeODQAR3u3ohL_S/view?usp=drive_link")],
+            [InlineKeyboardButton("📘 Unit 5", url="https://drive.google.com/file/d/1AdoILO4GI2kn1o2XmUajib41gxIJOa1D/view?usp=drive_link")],
+            [InlineKeyboardButton("⬅️ Back to P Cycle", callback_data="notes_pcycle")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await safe_edit(
+            query,
+            "⚡ <b>Elements of Electrical Engineering</b>\n<i>Units 2 – 5</i>\n\nSelect a unit:",
+            reply_markup=reply_markup,
+            parse_mode="HTML"
+        )
+
+    # ── P Cycle: Elements of Mechanical Engineering (Unit 1-5) ──────────────
+    elif query.data == "pcycle_eme":
+        keyboard = [
+            [InlineKeyboardButton("📙 Unit 1", url="https://drive.google.com/file/d/1AdoILO4GI2kn1o2XmUajib41gxIJOa1D/view?usp=drive_link")],
+            [InlineKeyboardButton("📙 Unit 2", url="https://drive.google.com/file/d/1bZRYBzWF_T7wQTdbI7GtDqPDeH7zsAJN/view?usp=drive_link")],
+            [InlineKeyboardButton("📙 Unit 3", url="https://drive.google.com/file/d/13eslK3sKHFqYXf-Me4tl49foITqPYtuO/view?usp=drive_link")],
+            [InlineKeyboardButton("📙 Unit 4", url="https://drive.google.com/file/d/1aW9jkg1bLS3Y_BKwL32MS4JjV5L3MQxs/view?usp=drive_link")],
+            [InlineKeyboardButton("📙 Unit 5", url="https://drive.google.com/file/d/1Loog61Ht5lGNBfLGPd7li3QbcVzBL-G6/view?usp=drive_link")],
+            [InlineKeyboardButton("⬅️ Back to P Cycle", callback_data="notes_pcycle")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await safe_edit(
+            query,
+            "⚙️ <b>Elements of Mechanical Engineering</b>\n<i>Units 1 – 5</i>\n\nSelect a unit:",
+            reply_markup=reply_markup,
+            parse_mode="HTML"
+        )
+
+    # ── P Cycle: Physics (Unit 1-4) ──────────────────────────────────────────
+    elif query.data == "pcycle_phy":
+        keyboard = [
+            [InlineKeyboardButton("🔬 Unit 1", url="https://drive.google.com/file/d/1kzK95W7hc4v2rySrJDiDTjXS7eJ5MtDY/view?usp=drive_link")],
+            [InlineKeyboardButton("🔬 Unit 2", url="https://drive.google.com/file/d/1NYMYIz1qmrc5LbZqv4yNAay0PVL1ylKL/view?usp=drive_link")],
+            [InlineKeyboardButton("🔬 Unit 3", url="https://drive.google.com/file/d/1ThPIL7Y5gyuah0Jr2Qu26GpF6pQXMucS/view?usp=drive_link")],
+            [InlineKeyboardButton("🔬 Unit 4", url="https://drive.google.com/file/d/1Lp0Nz05IZU1cXpXvnwhuNJbiB5XaNSbL/view?usp=drive_link")],
+            [InlineKeyboardButton("⬅️ Back to P Cycle", callback_data="notes_pcycle")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await safe_edit(
+            query,
+            "🔭 <b>Physics</b>\n<i>Units 1 – 4</i>\n\nSelect a unit:",
+            reply_markup=reply_markup,
+            parse_mode="HTML"
+        )
+
+    elif query.data == "notes_ccycle":
+        keyboard = [
+            [InlineKeyboardButton("📝 C Cycle Notes", url="https://eng-batman.github.io/batman/")],
+            [InlineKeyboardButton("⬅️ Back to Notes", callback_data="menu_notes")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await safe_edit(
+            query,
+            "🟢 <b>C Cycle — 2nd Semester</b>\n\nSelect a resource:",
             reply_markup=reply_markup,
             parse_mode="HTML"
         )
