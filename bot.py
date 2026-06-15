@@ -141,7 +141,7 @@ async def main_menu_callback(update: Update, context: ContextTypes.DEFAULT_TYPE)
     # ── P Cycle: Elements of Mechanical Engineering (Unit 1-5) ──────────────
     elif query.data == "pcycle_eme":
         keyboard = [
-            [InlineKeyboardButton("📙 Unit 1", url="https://drive.google.com/file/d/1AdoILO4GI2kn1o2XmUajib41gxIJOa1D/view?usp=drive_link")],
+            [InlineKeyboardButton("📙 Unit 1", url="https://drive.google.com/file/d/1daAtjPUUsUe9cdrUo4DP3TIdx1WK7XwO/view?usp=drive_link")],
             [InlineKeyboardButton("📙 Unit 2", url="https://drive.google.com/file/d/1bZRYBzWF_T7wQTdbI7GtDqPDeH7zsAJN/view?usp=drive_link")],
             [InlineKeyboardButton("📙 Unit 3", url="https://drive.google.com/file/d/13eslK3sKHFqYXf-Me4tl49foITqPYtuO/view?usp=drive_link")],
             [InlineKeyboardButton("📙 Unit 4", url="https://drive.google.com/file/d/1aW9jkg1bLS3Y_BKwL32MS4JjV5L3MQxs/view?usp=drive_link")],
@@ -369,6 +369,8 @@ def main():
     
     # Callback Query Handlers for Inline Buttons
     application.add_handler(CallbackQueryHandler(main_menu_callback, pattern="^menu_"))
+    application.add_handler(CallbackQueryHandler(main_menu_callback, pattern="^notes_"))
+    application.add_handler(CallbackQueryHandler(main_menu_callback, pattern="^pcycle_"))
     application.add_handler(CallbackQueryHandler(semester_callback, pattern="^sem_"))
 
     # Start the Bot
